@@ -1,0 +1,63 @@
+#define MATRIX_SIZE 1000
+#define PARTS_COUNT 10
+#define PART_ROWS ($MATRIX_SIZE / $PARTS_COUNT)
+
+import init_matrix_part(
+    int part_number,
+    int rows,
+    int cols,
+    name matrix_part
+) as init_matrix_part;
+
+import init_vector(
+    int size,
+    name vector
+) as init_vector;
+
+import matrix_vector_mult_part(
+    value matrix_part,
+    value vector,
+    name result,
+    int rows,
+    int cols
+) as matrix_vector_mult_part;
+
+import print_result_part(
+    int part_number,
+    value result_part,
+    int size
+) as print_result_part;
+
+
+sub main() {
+    df matrix, vector, result;
+
+    for i = 0 .. $PARTS_COUNT-1 {
+        init_matrix_part(
+            i,
+            $PART_ROWS,
+            $MATRIX_SIZE,
+            matrix[i]
+        );
+    }
+
+    init_vector($MATRIX_SIZE, vector);
+
+    for i = 0 .. $PARTS_COUNT-1 {
+        matrix_vector_mult_part(
+            matrix[i],
+            vector,
+            result[i],
+            $PART_ROWS,
+            $MATRIX_SIZE
+        );
+    }
+
+    for i = 0 .. $PARTS_COUNT-1 {
+        print_result_part(
+            i,
+            result[i],
+            $PART_ROWS
+        );
+    }
+}
