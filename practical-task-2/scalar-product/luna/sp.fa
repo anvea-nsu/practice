@@ -53,7 +53,7 @@ sub reduce_sum(name arr, int begin, int end, name result) {
 sub main() {
     df x, y, z, result;
 
-    for i = 0 .. $PARTS_COUNT-1 {
+    for i = 0 .. $PARTS_COUNT - 1 {
         init_vector_part(
             0,
             i,

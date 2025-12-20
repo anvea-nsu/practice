@@ -5,7 +5,8 @@
 
 void reduce_sum(DF *arr, int begin, int end, DF &result) {
     if (end - begin == 1) {
-        init(result, arr[begin]);
+        double val = arr[begin].getData<double>()[0];
+        init(result, val);
         return;
     }
 
@@ -16,8 +17,8 @@ void reduce_sum(DF *arr, int begin, int end, DF &result) {
         reduce_sum(arr, begin, mid, tmp1);
         reduce_sum(arr, mid, end, tmp2);
 
-        init(result, tmp1.getData<double>()[0]
-                   + tmp2.getData<double>()[0]);
+        double sum = tmp1.getData<double>()[0] + tmp2.getData<double>()[0];
+        init(result, sum);
     }
 }
 
@@ -38,10 +39,13 @@ int main() {
         init_vector_part(1, i, VECTOR_PART_SIZE, y[i]);
     }
 
+    // Умножение
     mulv(x, y, z);
 
+    // Редукция
     reduce_sum(z, 0, PARTS_COUNT, result);
 
+    // Вывод результата
     print_result(result.getData<double>()[0]);
 
     return 0;
